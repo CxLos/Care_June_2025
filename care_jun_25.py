@@ -77,7 +77,7 @@ color_sequence = px.colors.qualitative.Plotly
 # Get the reporting month:
 current_month = datetime(2025, 6, 1).strftime("%B")
 report_year = datetime(2025, 6, 1).strftime("%Y")
-care_network = 'Care Network'
+report = 'Care Network'
 # -------------------------------------------------
 # print(df)
 # print(df[["Date of Activity", "Total travel time (minutes):"]])
@@ -298,7 +298,7 @@ group_bar=px.bar(
     height=800, 
     width=1500,
     title=dict(
-        text=f'{current_month} {care_network} Groups',
+        text=f'{current_month} {report} Groups',
         x=0.5, 
         font=dict(
             size=25,
@@ -354,7 +354,7 @@ group_pie=px.pie(
 ).update_layout(
     height=600,
     width=950,
-    title=f'{current_month} Ratio of {care_network} Groups',
+    title=f'{current_month} Ratio of {report} Groups',
     title_x=0.5,
     font=dict(
         family='Calibri',
@@ -448,7 +448,7 @@ task_bar=px.bar(
     height=1000, 
     width=1500,
     title=dict(
-        text=f'{current_month} {care_network} Tasks',
+        text=f'{current_month} {report} Tasks',
         x=0.5, 
         font=dict(
             size=25,
@@ -504,7 +504,7 @@ task_pie=px.pie(
 ).update_layout(
     height=1000,
     width=950,
-    title=f'{current_month} Ratio of {care_network} Tasks',
+    title=f'{current_month} Ratio of {report} Tasks',
     title_x=0.5,
     font=dict(
         family='Calibri',
@@ -618,7 +618,7 @@ tag_bar=px.bar(
     height=1100, 
     width=1500,
     title=dict(
-        text=f'{current_month} {care_network} Tags',
+        text=f'{current_month} {report} Tags',
         x=0.5, 
         font=dict(
             size=25,
@@ -674,7 +674,7 @@ tag_pie=px.pie(
 ).update_layout(
     height=1200,
     width=950,
-    title=f'{current_month} Ratio of {care_network} Tags',
+    title=f'{current_month} Ratio of {report} Tags',
     title_x=0.5,
     font=dict(
         family='Calibri',
@@ -761,7 +761,7 @@ collab_bar=px.bar(
     height=850, 
     width=1500,
     title=dict(
-        text=f'{current_month} {care_network} Collaborated Entities',
+        text=f'{current_month} {report} Collaborated Entities',
         x=0.5, 
         font=dict(
             size=25,
@@ -1022,7 +1022,7 @@ app.layout = html.Div(
         children=[
         html.A(
             'Repo',
-            href=f'https://github.com/CxLos/Admin_{current_month}_{report_year}',
+            href=f'https://github.com/CxLos/{report}_{current_month}_{report_year}',
             className='btn'),
         ]),
     ]),    
@@ -1061,7 +1061,7 @@ html.Div(
             children=[
             html.Div(
                 className='high1',
-                children=[f'{current_month} {care_network} Events']
+                children=[f'{current_month} {report} Events']
             ),
             html.Div(
                 className='circle',
@@ -1115,7 +1115,7 @@ html.Div(
             children=[
             html.Div(
                 className='high1',
-                children=[f'{current_month} {care_network} Hours']
+                children=[f'{current_month} {report} Hours']
             ),
             html.Div(
                 className='circle',

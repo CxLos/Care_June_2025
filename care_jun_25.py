@@ -189,14 +189,27 @@ admin_hours=round(admin_hours)
 
 df['Travel'] = df['Travel'].fillna('0')
 
+travel_unique =[
+    '', 'None', 
+    '1-30 Minutes', 
+    '31-60 Minutes', 
+    '61-90 Minutes', 
+    '0-30 Minutes'
+]
+
+df['Travel'] = df['Travel'].fillna('0')
+
 df['Travel'] = (
     df['Travel']
         .astype(str)
         .str.strip()
             .replace({
                 '0-30 Minutes': '30',
+                '1-30 Minutes': '30',
                 '31-60 Minutes': '60',
-                'None': '30',
+                '61-90 Minutes': '90',
+                '': '0',
+                'None': '0',
             })
 )
 
@@ -723,27 +736,18 @@ collab_unique = [
     'Austin-Travis County ECHO'
 ]
 
-# Flatten and clean the list
-collab_categories = sorted(set(
-    item.strip()
-    for entry in collab_unique if entry # Ensure we only process non-empty entries
-    for item in entry.split(',') # Split by comma if there are multiple entries
-))
-
-# Normalize the categories for matching
-collab_normalized = {cat.lower(): cat for cat in collab_categories}
-counter = Counter()
-
-# Count occurrences of each category, regardless of combinations
+# Clean and split all entries, then flatten into a single list
+all_collabs = []
 for entry in df['Collab']:
-    items = [i.strip().lower() for i in entry.split(",")]
-    for item in items:
-        if item in collab_normalized:
-            counter[collab_normalized[item]] += 1
+    items = [i.strip() for i in str(entry).split(",") if i.strip() and i.strip().lower() != "n/a"]
+    all_collabs.extend(items)
 
-# print("Collab Value Counts after: \n", df['Collab'].value_counts())
+# Count occurrences
+counter = Counter(all_collabs)
 
-# Convert to DataFrame and sort
+# for category, count in counter.items():
+#     print(f"Support Counts: \n {category}: {count}")
+
 df_collab = pd.DataFrame(counter.items(), columns=['Collab', 'Count']).sort_values(by='Count', ascending=False)
 
 # print(df_collab)
